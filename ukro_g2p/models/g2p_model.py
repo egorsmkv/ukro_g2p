@@ -75,7 +75,7 @@ class PreTrainedG2PModel(nn.Module):
         self.config = config
 
     @classmethod
-    def from_pretrained(cls, model_name):
+    def from_pretrained(cls, model_name, device):
 
         if model_name not in pretrained_models:
             raise ValueError
@@ -85,6 +85,8 @@ class PreTrainedG2PModel(nn.Module):
 
         # instantiate model
         model = cls(config)
+
+        model.device = device
 
         # loading weights
         state_dict = model_zoo.load_url(pretrained_models[model_name].url,
@@ -101,7 +103,6 @@ class G2PModel(PreTrainedG2PModel):
 
         # init
         self.config = config
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
         # encoder
         self.encoder = Encoder(config)

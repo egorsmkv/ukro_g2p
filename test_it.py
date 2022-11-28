@@ -1,6 +1,6 @@
 from ukro_g2p.predict import G2P
 
-g2p = G2P('ukro-base-uncased')
+g2p = G2P('ukro-base-uncased', cpu=True)
 
 sentences = [
     'я хочу спитати',
